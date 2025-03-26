@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简历生成器</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>简历生成器</h1>
+        <p class="subtitle">快速创建专业简历</p>
+      </header>
+
+      <main>
+        <div class="tools">
+          <div class="file-import">
+            <input
+              type="file"
+              id="fileInput"
+              accept=".doc,.docx,.pdf,.txt,.md"
+            />
+            <label for="fileInput" class="button">导入文件</label>
+          </div>
+          <div class="export-buttons">
+            <button id="exportDoc" class="button">导出 Word</button>
+            <button id="exportPdf" class="button">导出 PDF</button>
+          </div>
+        </div>
+
+        <div class="editor-container">
+          <div id="editor"></div>
+          <div id="preview"></div>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css"
+    />
+    <!-- Word文档处理 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://unpkg.com/docx@8.2.3/build/index.js"></script>
+    <!-- PDF处理 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
