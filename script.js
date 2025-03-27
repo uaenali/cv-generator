@@ -21,39 +21,116 @@ document.addEventListener('DOMContentLoaded', function () {
   editor.contentEditable = true;
 
   // 添加示例模板
-  const template = `# 个人简历
+  const template = `<h1 class="resume-title">个人简历</h1>
 
-## 基本信息
-- 姓名：张三
-- 年龄：25
-- 邮箱：example@email.com
-- 电话：123-4567-8900
+<h2 class="section-title">
+  <i class="fas fa-user"></i>基本信息
+</h2>
+<div class="basic-info">
+  <div class="basic-info-item">
+    <i class="fas fa-user"></i>
+    <span>姓名：张三</span>
+  </div>
+  <div class="basic-info-item">
+    <i class="fas fa-birthday-cake"></i>
+    <span>年龄：25</span>
+  </div>
+  <div class="basic-info-item">
+    <i class="fas fa-envelope"></i>
+    <span>邮箱：example@email.com</span>
+  </div>
+  <div class="basic-info-item">
+    <i class="fas fa-phone"></i>
+    <span>电话：123-4567-8900</span>
+  </div>
+  <div class="basic-info-item">
+    <i class="fas fa-map-marker-alt"></i>
+    <span>地址：北京市朝阳区</span>
+  </div>
+</div>
 
-## 教育背景
-### 某某大学 (2018-2022)
-- 专业：计算机科学与技术
-- 学位：学士
-- GPA：3.8/4.0
+<h2 class="section-title">
+  <i class="fas fa-graduation-cap"></i>教育背景
+</h2>
+<div class="item-header">
+  <span class="item-title">某某大学</span>
+  <span class="item-date">2018-2022</span>
+</div>
+<div class="item-content">
+  <ul>
+    <li>专业：计算机科学与技术</li>
+    <li>学位：学士</li>
+    <li>GPA：3.8/4.0</li>
+  </ul>
+</div>
 
-## 工作经验
-### ABC公司 - 软件工程师 (2022-至今)
-- 负责公司核心产品的开发维护
-- 实现了XX功能，提升了YY效率
-- 主导了ZZ项目的技术改造
+<h2 class="section-title">
+  <i class="fas fa-briefcase"></i>工作经验
+</h2>
+<div class="item-header">
+  <span class="item-title">ABC公司 - 软件工程师</span>
+  <span class="item-date">2022-至今</span>
+</div>
+<div class="item-content">
+  <ul>
+    <li>负责公司核心产品的开发维护</li>
+    <li>实现了XX功能，提升了YY效率</li>
+    <li>主导了ZZ项目的技术改造</li>
+  </ul>
+</div>
 
-## 技能特长
-- 编程语言：JavaScript, Python, Java
-- 框架：React, Vue, Spring Boot
-- 工具：Git, Docker, Kubernetes
-- 语言：英语（流利）
+<div class="item-header">
+  <span class="item-title">XYZ科技 - 实习工程师</span>
+  <span class="item-date">2021.07-2021.09</span>
+</div>
+<div class="item-content">
+  <ul>
+    <li>参与开发移动端应用</li>
+    <li>完成了功能模块的重构</li>
+    <li>解决了多个性能问题</li>
+  </ul>
+</div>
 
-## 项目经验
-### 项目名称 (2023)
-- 项目描述
-- 主要职责
-- 技术栈
-- 项目成果
-`;
+<h2 class="section-title">
+  <i class="fas fa-tools"></i>技能特长
+</h2>
+<div class="item-content">
+  <ul>
+    <li>编程语言：JavaScript, Python, Java</li>
+    <li>框架：React, Vue, Spring Boot</li>
+    <li>工具：Git, Docker, Kubernetes</li>
+    <li>语言：英语（流利）</li>
+  </ul>
+</div>
+
+<h2 class="section-title">
+  <i class="fas fa-project-diagram"></i>项目经验
+</h2>
+<div class="item-header">
+  <span class="item-title">企业管理系统</span>
+  <span class="item-date">2023.01-2023.06</span>
+</div>
+<div class="item-content">
+  <ul>
+    <li>项目描述：基于React和Node.js的企业级管理系统</li>
+    <li>主要职责：前端架构设计和核心模块开发</li>
+    <li>技术栈：React, TypeScript, Node.js, MongoDB</li>
+    <li>项目成果：提升了团队效率30%，获得客户好评</li>
+  </ul>
+</div>
+
+<div class="item-header">
+  <span class="item-title">移动端APP开发</span>
+  <span class="item-date">2022.07-2022.12</span>
+</div>
+<div class="item-content">
+  <ul>
+    <li>项目描述：跨平台移动应用开发</li>
+    <li>主要职责：负责核心功能模块开发</li>
+    <li>技术栈：React Native, Redux, Firebase</li>
+    <li>项目成果：应用在App Store获得4.5星评分</li>
+  </ul>
+</div>`;
 
   editor.textContent = template;
   updatePreview(template);
@@ -107,11 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 更新预览
   function updatePreview(content) {
-    preview.innerHTML = marked.parse(content);
-    // 代码高亮
-    preview.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
+    preview.innerHTML = content;
   }
 
   // Word文档转换函数
