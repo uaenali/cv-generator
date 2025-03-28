@@ -264,3 +264,21 @@ input[type='file'] {
 .editor-container.dragging #preview {
   pointer-events: none;
 } */
+
+/* 添加分页控制样式 */
+@media print {
+  .item-header,
+  .item-content,
+  .section-title {
+    page-break-inside: avoid;
+  }
+
+  .section-title {
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+
+  .resume-header {
+    page-break-after: avoid;
+  }
+}

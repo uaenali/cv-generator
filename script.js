@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const preview = document.getElementById('preview');
   const exportDocBtn = document.getElementById('exportDoc');
   const exportPdfBtn = document.getElementById('exportPdf');
-  // const resizer = document.getElementById('resizer');
   // const editorContainer = document.querySelector('.editor-container');
 
   // 配置marked选项
@@ -182,26 +181,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // 生成PDF文档(其中照片不显示，图片URL是可以公开访问的，如果是本地图片，建议使用base64格式)
   async function generatePDF(content) {
     try {
-      // 创建一个临时容器来存放格式化的内容
       const container = document.createElement('div');
       container.innerHTML = content;
-      container.style.padding = '20px';
+      // 添加页面样式
+      container.style.padding = '10px';
       container.style.fontSize = '12pt';
-
-      // 配置PDF选项
-      const opt = {
-        margin: [10, 10],
-        filename: 'resume.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true, // 允许跨域，1.要添加了useCORS和allowTaint选项来处理跨域图片
-          allowTaint: true, // 允许图片跨域
-          logging: true, // 开启日志以便调试
-          imageTimeout: 0, // 禁用图片加载超时
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      };
+      container.style.lineHeight = '1.3';
 
       // 先等待图片加载完成（2.添加了图片预加载逻辑，确保所有图片都加载完成后再生成PDF）
       const images = container.getElementsByTagName('img');
@@ -218,8 +203,43 @@ document.addEventListener('DOMContentLoaded', function () {
         })
       );
 
+      // 配置PDF选项
+      const opt = {
+        margin: [8, 8], // 增加页边距
+        filename: 'resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true, // 允许跨域，1.要添加了useCORS和allowTaint选项来处理跨域图片
+          allowTaint: true, // 允许图片跨域
+          logging: true, // 开启日志以便调试
+          imageTimeout: 0, // 禁用图片加载超时
+          letterRendering: true, // 改善文字渲染
+          scrollY: 0, // 防止滚动影响
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait',
+          compress: true,
+          precision: 16, // 提高精度
+        },
+        pagebreak: {
+          // 觉得这并没什么卵用
+          mode: ['avoid-all', 'css', 'legacy'], // 优化分页
+          before: '.page-break-before',
+          after: '.page-break-after',
+          avoid: ['tr', 'td', 'li', '.item-content', '.item-header'], // 避免在这些元素内部分页
+        },
+      };
+
       // 生成PDF
-      const pdf = await html2pdf().set(opt).from(container).outputPdf('blob');
+      const pdf = await html2pdf()
+        .set(opt)
+        .from(container)
+        .toPdf() // 先转换为PDF对象
+        .output('blob'); // 然后输出为blob
+
       return pdf;
     } catch (error) {
       console.error('Error generating PDF:', error);
