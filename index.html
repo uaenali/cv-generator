@@ -35,10 +35,110 @@
 
         <div class="editor-container">
           <div id="editor"></div>
+          <!-- <div id="resizer"></div> -->
           <div id="preview"></div>
         </div>
       </main>
     </div>
+
+    <!-- 简历模板 -->
+    <template id="resumeTemplate">
+      <div class="resume-header">
+        <div class="resume-header-left">
+          <h1 class="name">张三</h1>
+          <h2 class="position">前端工程师</h2>
+          <div class="basic-info-list">
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>北京</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-user"></i>
+              <span>汉族</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-birthday-cake"></i>
+              <span>18岁</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-home"></i>
+              <span>籍贯：北京</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <span>123-4567-8900</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <span>example@email.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="resume-header-right">
+          <div class="avatar">
+            <img
+              src="https://www.helloimg.com/i/2025/03/28/67e6646258ab0.jpg"
+              alt="个人照片"
+            />
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">
+        <i class="fas fa-graduation-cap"></i>教育背景
+      </h2>
+      <div class="item-header">
+        <span class="item-title">某某大学</span>
+        <span class="item-date">2016-2020</span>
+      </div>
+      <div class="item-content">
+        <ul>
+          <li>专业：计算机科学与技术</li>
+          <li>学位：学士</li>
+          <li>GPA：3.8/4.0</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title"><i class="fas fa-tools"></i>技能特长</h2>
+      <div class="item-content">
+        <ul>
+          <li>编程语言：JavaScript, Python, Java</li>
+          <li>框架：React, Vue, Spring Boot</li>
+          <li>工具：Git, Docker, Kubernetes</li>
+          <li>语言：英语（流利）</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">
+        <i class="fas fa-project-diagram"></i>项目经验
+      </h2>
+      <div class="item-header">
+        <span class="item-title">企业管理系统</span>
+        <span class="item-date">2023.01-2023.06</span>
+      </div>
+      <div class="item-content">
+        <ul>
+          <li>项目描述：基于React和Node.js的企业级管理系统</li>
+          <li>主要职责：前端架构设计和核心模块开发</li>
+          <li>技术栈：React, TypeScript, Node.js, MongoDB</li>
+          <li>项目成果：提升了团队效率30%，获得客户好评</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title"><i class="fas fa-briefcase"></i>工作经验</h2>
+      <div class="item-header">
+        <span class="item-title">xx公司 - 软件工程师</span>
+        <span class="item-date">2022-至今</span>
+      </div>
+      <div class="item-content">
+        <ul>
+          <li>负责公司核心产品的开发维护</li>
+          <li>实现了XX功能，提升了YY效率</li>
+          <li>主导了ZZ项目的技术改造</li>
+        </ul>
+      </div>
+    </template>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <link
