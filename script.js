@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // 生成PDF文档
+  // 生成PDF文档(其中照片不显示，图片URL是可以公开访问的，如果是本地图片，建议使用base64格式)
   async function generatePDF(content) {
     try {
       // 创建一个临时容器来存放格式化的内容
@@ -193,9 +193,30 @@ document.addEventListener('DOMContentLoaded', function () {
         margin: [10, 10],
         filename: 'resume.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true, // 允许跨域，1.要添加了useCORS和allowTaint选项来处理跨域图片
+          allowTaint: true, // 允许图片跨域
+          logging: true, // 开启日志以便调试
+          imageTimeout: 0, // 禁用图片加载超时
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
+
+      // 先等待图片加载完成（2.添加了图片预加载逻辑，确保所有图片都加载完成后再生成PDF）
+      const images = container.getElementsByTagName('img');
+      await Promise.all(
+        Array.from(images).map((img) => {
+          return new Promise((resolve, reject) => {
+            if (img.complete) {
+              resolve();
+            } else {
+              img.onload = resolve;
+              img.onerror = reject;
+            }
+          });
+        })
+      );
 
       // 生成PDF
       const pdf = await html2pdf().set(opt).from(container).outputPdf('blob');
@@ -217,56 +238,4 @@ document.addEventListener('DOMContentLoaded', function () {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   }
-
-  // // 初始化拖动功能
-  // if (resizer) {
-  //   let isResizing = false;
-  //   let startX;
-  //   let startWidthLeft;
-  //   let startWidthRight;
-
-  //   resizer.addEventListener('mousedown', function (e) {
-  //     isResizing = true;
-  //     startX = e.clientX;
-  //     startWidthLeft = editor.offsetWidth;
-  //     startWidthRight = preview.offsetWidth;
-
-  //     // 添加拖动时的样式
-  //     editorContainer.classList.add('dragging');
-  //     resizer.classList.add('dragging');
-  //   });
-
-  //   document.addEventListener('mousemove', function (e) {
-  //     if (!isResizing) return;
-
-  //     const containerWidth = editorContainer.offsetWidth;
-  //     const diff = e.clientX - startX;
-
-  //     // 计算新宽度
-  //     let newLeftWidth = startWidthLeft + diff;
-  //     let newRightWidth = startWidthRight - diff;
-
-  //     // 限制最小宽度
-  //     const minWidth = 300;
-  //     if (newLeftWidth < minWidth) {
-  //       newLeftWidth = minWidth;
-  //       newRightWidth = containerWidth - minWidth - 6;
-  //     } else if (newRightWidth < minWidth) {
-  //       newRightWidth = minWidth;
-  //       newLeftWidth = containerWidth - minWidth - 6;
-  //     }
-
-  //     // 应用新宽度
-  //     editor.style.width = `${newLeftWidth}px`;
-  //     preview.style.width = `${newRightWidth}px`;
-  //   });
-
-  //   document.addEventListener('mouseup', function () {
-  //     if (!isResizing) return;
-
-  //     isResizing = false;
-  //     editorContainer.classList.remove('dragging');
-  //     resizer.classList.remove('dragging');
-  //   });
-  // }
 });
